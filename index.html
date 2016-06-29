@@ -1,72 +1,1274 @@
 <!DOCTYPE html>
 <html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<meta name="google-site-verification" content="YkPetA0ASC5Icol9xmKatV3_yABuhV7yq3FBBXe6CV0" />
+<title>OPTC Flair Selector</title>
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Optcflairbot : Flair selection page for /r/OnePieceTC">
+<link rel="stylesheet" type="text/css" href="http://static.tumblr.com/idsxosh/4Vzo9dsx6/flairbot.css">
+</head>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<body>
 
-    <title>Optcflairbot</title>
-  </head>
+<div class="container1">
 
-  <body>
+<div class="flair flair-optc" id="flair" style="float: none"></div>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/antonlabz/OPTCFlairBot">View on GitHub</a>
+<div style="text-align: left; position: relative;">
 
-          <h1 id="project_title">Optcflairbot</h1>
-          <h2 id="project_tagline">Flair selection page for /r/OnePieceTC</h2>
+<div id="name">Name</div>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/antonlabz/OPTCFlairBot/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/antonlabz/OPTCFlairBot/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+<br>
+<input type="text" id="text" placeholder="Flair text here..">
+</div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<br>
+<div onclick="sendflair()" id="button">SEND FLAIR REQUEST</div>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
+<p>*To assign yourself a flair without text, type 'none' (without the quotes).</p>
+<p>*<strong>Please do NOT use special unicode characters</strong> - these cause the bot to glitch.</p>
+<p><strong>Note:</strong> Text box can't be blank or the message won't send.</p>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
+<form onsubmit="fsearch();return false;" class="box">
+    <input type="search" id="search" placeholder="Search unit #..." />
+</form>
 
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
+</div>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Optcflairbot maintained by <a href="https://github.com/antonlabz">antonlabz</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
+<!--CSS-->
+<style>
+    .box{
+      overflow: hidden;
+      width: 150px;
+      vertical-align: middle;
+      white-space: nowrap;
+      margin:auto;
+    }
+    .box input#search{
+      width: 150px;
+      height: 25px;
+      background: #594a3f;
+      border: 1px solid #efaf55;
+      font-size: 10pt;
+      float: left;
+      color: #fff;
+      padding-left: 15px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+    .box input#search::-webkit-input-placeholder {
+       color: #c1c1c1;
+    }
+     
+    .box input#search:-moz-placeholder { /* Firefox 18- */
+       color: #c1c1c1;  
+    }
+     
+    .box input#search::-moz-placeholder {  /* Firefox 19+ */
+       color: #c1c1c1;  
+    }
+     
+    .box input#search:-ms-input-placeholder {  
+       color: #c1c1c1;  
+    }
     
+    body{
+    font-family: 'Open Sans', sans-serif;
+	text-align: center;
+	background: url("http://static.tumblr.com/idsxosh/NDlo2j1m5/bg.jpg");
+	background-attachment:fixed;
+    }
+    
+    div{
+    	display: inline-block;
+    	text-align: center;
+    }
+    
+    .container1{
+        width: 100%;
+        max-width: 900px;
+        padding: 10px;
+        border-radius: 5px;
+    	background: url("http://static.tumblr.com/idsxosh/Ltzo2j5xt/flair_bg.png");
+    	display: inline-block;
+    	position: relative;
+    	background-size: cover;
+    }
+    
+    .container2{
+        width: 100%;
+        max-width: 900px;
+        padding: 10px;
+        border-radius: 5px;
+    	background: url("http://static.tumblr.com/idsxosh/xQxo2iv8h/flair_bg2.png");
+    	display: inline-block;
+    	position: relative;
+    	background-size:100%;
+    	background-attachment:fixed;
+    }
+    
+    .flair{
+    	height: 40px;
+    	width: 40px;
+    	cursor: pointer;
+    	margin-right: 6px;
+    	margin-top: 6px;
+    	border: 3px solid transparent;
+    	background-clip: padding-box;
+    }
+    
+    .flair:hover, .selected{
+        border: 3px solid #3498db;
+    }
+    
+    .flair-optc{
+        background-image: url("http://static.tumblr.com/idsxosh/UK1o9dsyp/flairbot.png")
+    }
+    
+    #flair{
+    	background-color: transparent !important;
+    	cursor: default !important;
+    	position: relative;
+    	top: 10px;
+    }
+    
+    #name{
+    	visibility: hidden;
+    }
+    
+    input{
+    	font-size: x-small;
+    	width: 150px;
+    	color: #999;
+    	border-radius: 3px;
+    	padding:2px;
+    	border: 0;
+    }
+    
+    #button{
+    	background: url("http://static.tumblr.com/idsxosh/2Zio2irr6/button.png") no-repeat;
+    	background-position: center;
+    	color: white;
+    	height: 40px;
+    	width: 180px;
+    	line-height:40px;
+    	padding: 3px 0;
+    	text-align: center;
+    	cursor: pointer;
+    	font-size: 14px;
+    	font-weight: 600;
+    	margin-top: 10px;
+    	transition:0.5s;
+    }
+    #button:hover {
+        transform:scale(1.05);
+    }
+    
+    p {
+        display: block;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-size:14px;
+        color: #f2f2f2;
+        font-family: calibri;
+         text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    }
+    strong {
+        color: #fff;
+    }
+</style>
 
-  </body>
+<p>
+<!-- start flairs -->
+<div class="container2">
+<div onclick='fselect(0)' class='flair flair-optc flair-0' id='0'></div>
+<div onclick='fselect(1)' class='flair flair-optc flair-1' id='1'></div>
+<div onclick='fselect(2)' class='flair flair-optc flair-2' id='2'></div>
+<div onclick='fselect(3)' class='flair flair-optc flair-3' id='3'></div>
+<div onclick='fselect(4)' class='flair flair-optc flair-4' id='4'></div>
+<div onclick='fselect(5)' class='flair flair-optc flair-5' id='5'></div>
+<div onclick='fselect(6)' class='flair flair-optc flair-6' id='6'></div>
+<div onclick='fselect(7)' class='flair flair-optc flair-7' id='7'></div>
+<div onclick='fselect(8)' class='flair flair-optc flair-8' id='8'></div>
+<div onclick='fselect(9)' class='flair flair-optc flair-9' id='9'></div>
+<div onclick='fselect(10)' class='flair flair-optc flair-10' id='10'></div>
+<div onclick='fselect(11)' class='flair flair-optc flair-11' id='11'></div>
+<div onclick='fselect(12)' class='flair flair-optc flair-12' id='12'></div>
+<div onclick='fselect(13)' class='flair flair-optc flair-13' id='13'></div>
+<div onclick='fselect(14)' class='flair flair-optc flair-14' id='14'></div>
+<div onclick='fselect(15)' class='flair flair-optc flair-15' id='15'></div>
+<div onclick='fselect(16)' class='flair flair-optc flair-16' id='16'></div>
+<div onclick='fselect(17)' class='flair flair-optc flair-17' id='17'></div>
+<div onclick='fselect(18)' class='flair flair-optc flair-18' id='18'></div>
+<div onclick='fselect(19)' class='flair flair-optc flair-19' id='19'></div>
+<div onclick='fselect(20)' class='flair flair-optc flair-20' id='20'></div>
+<div onclick='fselect(21)' class='flair flair-optc flair-21' id='21'></div>
+<div onclick='fselect(22)' class='flair flair-optc flair-22' id='22'></div>
+<div onclick='fselect(23)' class='flair flair-optc flair-23' id='23'></div>
+<div onclick='fselect(24)' class='flair flair-optc flair-24' id='24'></div>
+<div onclick='fselect(25)' class='flair flair-optc flair-25' id='25'></div>
+<div onclick='fselect(26)' class='flair flair-optc flair-26' id='26'></div>
+<div onclick='fselect(27)' class='flair flair-optc flair-27' id='27'></div>
+<div onclick='fselect(28)' class='flair flair-optc flair-28' id='28'></div>
+<div onclick='fselect(29)' class='flair flair-optc flair-29' id='29'></div>
+<div onclick='fselect(30)' class='flair flair-optc flair-30' id='30'></div>
+<div onclick='fselect(31)' class='flair flair-optc flair-31' id='31'></div>
+<div onclick='fselect(32)' class='flair flair-optc flair-32' id='32'></div>
+<div onclick='fselect(33)' class='flair flair-optc flair-33' id='33'></div>
+<div onclick='fselect(34)' class='flair flair-optc flair-34' id='34'></div>
+<div onclick='fselect(35)' class='flair flair-optc flair-35' id='35'></div>
+<div onclick='fselect(36)' class='flair flair-optc flair-36' id='36'></div>
+<div onclick='fselect(37)' class='flair flair-optc flair-37' id='37'></div>
+<div onclick='fselect(38)' class='flair flair-optc flair-38' id='38'></div>
+<div onclick='fselect(39)' class='flair flair-optc flair-39' id='39'></div>
+<div onclick='fselect(40)' class='flair flair-optc flair-40' id='40'></div>
+<div onclick='fselect(41)' class='flair flair-optc flair-41' id='41'></div>
+<div onclick='fselect(42)' class='flair flair-optc flair-42' id='42'></div>
+<div onclick='fselect(43)' class='flair flair-optc flair-43' id='43'></div>
+<div onclick='fselect(44)' class='flair flair-optc flair-44' id='44'></div>
+<div onclick='fselect(45)' class='flair flair-optc flair-45' id='45'></div>
+<div onclick='fselect(46)' class='flair flair-optc flair-46' id='46'></div>
+<div onclick='fselect(47)' class='flair flair-optc flair-47' id='47'></div>
+<div onclick='fselect(48)' class='flair flair-optc flair-48' id='48'></div>
+<div onclick='fselect(49)' class='flair flair-optc flair-49' id='49'></div>
+<div onclick='fselect(50)' class='flair flair-optc flair-50' id='50'></div>
+<div onclick='fselect(51)' class='flair flair-optc flair-51' id='51'></div>
+<div onclick='fselect(52)' class='flair flair-optc flair-52' id='52'></div>
+<div onclick='fselect(53)' class='flair flair-optc flair-53' id='53'></div>
+<div onclick='fselect(54)' class='flair flair-optc flair-54' id='54'></div>
+<div onclick='fselect(55)' class='flair flair-optc flair-55' id='55'></div>
+<div onclick='fselect(56)' class='flair flair-optc flair-56' id='56'></div>
+<div onclick='fselect(57)' class='flair flair-optc flair-57' id='57'></div>
+<div onclick='fselect(58)' class='flair flair-optc flair-58' id='58'></div>
+<div onclick='fselect(59)' class='flair flair-optc flair-59' id='59'></div>
+<div onclick='fselect(60)' class='flair flair-optc flair-60' id='60'></div>
+<div onclick='fselect(61)' class='flair flair-optc flair-61' id='61'></div>
+<div onclick='fselect(62)' class='flair flair-optc flair-62' id='62'></div>
+<div onclick='fselect(63)' class='flair flair-optc flair-63' id='63'></div>
+<div onclick='fselect(64)' class='flair flair-optc flair-64' id='64'></div>
+<div onclick='fselect(65)' class='flair flair-optc flair-65' id='65'></div>
+<div onclick='fselect(66)' class='flair flair-optc flair-66' id='66'></div>
+<div onclick='fselect(67)' class='flair flair-optc flair-67' id='67'></div>
+<div onclick='fselect(68)' class='flair flair-optc flair-68' id='68'></div>
+<div onclick='fselect(69)' class='flair flair-optc flair-69' id='69'></div>
+<div onclick='fselect(70)' class='flair flair-optc flair-70' id='70'></div>
+<div onclick='fselect(71)' class='flair flair-optc flair-71' id='71'></div>
+<div onclick='fselect(72)' class='flair flair-optc flair-72' id='72'></div>
+<div onclick='fselect(73)' class='flair flair-optc flair-73' id='73'></div>
+<div onclick='fselect(74)' class='flair flair-optc flair-74' id='74'></div>
+<div onclick='fselect(75)' class='flair flair-optc flair-75' id='75'></div>
+<div onclick='fselect(76)' class='flair flair-optc flair-76' id='76'></div>
+<div onclick='fselect(77)' class='flair flair-optc flair-77' id='77'></div>
+<div onclick='fselect(78)' class='flair flair-optc flair-78' id='78'></div>
+<div onclick='fselect(79)' class='flair flair-optc flair-79' id='79'></div>
+<div onclick='fselect(80)' class='flair flair-optc flair-80' id='80'></div>
+<div onclick='fselect(81)' class='flair flair-optc flair-81' id='81'></div>
+<div onclick='fselect(82)' class='flair flair-optc flair-82' id='82'></div>
+<div onclick='fselect(83)' class='flair flair-optc flair-83' id='83'></div>
+<div onclick='fselect(84)' class='flair flair-optc flair-84' id='84'></div>
+<div onclick='fselect(85)' class='flair flair-optc flair-85' id='85'></div>
+<div onclick='fselect(86)' class='flair flair-optc flair-86' id='86'></div>
+<div onclick='fselect(87)' class='flair flair-optc flair-87' id='87'></div>
+<div onclick='fselect(88)' class='flair flair-optc flair-88' id='88'></div>
+<div onclick='fselect(89)' class='flair flair-optc flair-89' id='89'></div>
+<div onclick='fselect(90)' class='flair flair-optc flair-90' id='90'></div>
+<div onclick='fselect(91)' class='flair flair-optc flair-91' id='91'></div>
+<div onclick='fselect(92)' class='flair flair-optc flair-92' id='92'></div>
+<div onclick='fselect(93)' class='flair flair-optc flair-93' id='93'></div>
+<div onclick='fselect(94)' class='flair flair-optc flair-94' id='94'></div>
+<div onclick='fselect(95)' class='flair flair-optc flair-95' id='95'></div>
+<div onclick='fselect(96)' class='flair flair-optc flair-96' id='96'></div>
+<div onclick='fselect(97)' class='flair flair-optc flair-97' id='97'></div>
+<div onclick='fselect(98)' class='flair flair-optc flair-98' id='98'></div>
+<div onclick='fselect(99)' class='flair flair-optc flair-99' id='99'></div>
+<div onclick='fselect(100)' class='flair flair-optc flair-100' id='100'></div>
+<div onclick='fselect(101)' class='flair flair-optc flair-101' id='101'></div>
+<div onclick='fselect(102)' class='flair flair-optc flair-102' id='102'></div>
+<div onclick='fselect(103)' class='flair flair-optc flair-103' id='103'></div>
+<div onclick='fselect(104)' class='flair flair-optc flair-104' id='104'></div>
+<div onclick='fselect(105)' class='flair flair-optc flair-105' id='105'></div>
+<div onclick='fselect(106)' class='flair flair-optc flair-106' id='106'></div>
+<div onclick='fselect(107)' class='flair flair-optc flair-107' id='107'></div>
+<div onclick='fselect(108)' class='flair flair-optc flair-108' id='108'></div>
+<div onclick='fselect(109)' class='flair flair-optc flair-109' id='109'></div>
+<div onclick='fselect(110)' class='flair flair-optc flair-110' id='110'></div>
+<div onclick='fselect(111)' class='flair flair-optc flair-111' id='111'></div>
+<div onclick='fselect(112)' class='flair flair-optc flair-112' id='112'></div>
+<div onclick='fselect(113)' class='flair flair-optc flair-113' id='113'></div>
+<div onclick='fselect(114)' class='flair flair-optc flair-114' id='114'></div>
+<div onclick='fselect(115)' class='flair flair-optc flair-115' id='115'></div>
+<div onclick='fselect(116)' class='flair flair-optc flair-116' id='116'></div>
+<div onclick='fselect(117)' class='flair flair-optc flair-117' id='117'></div>
+<div onclick='fselect(118)' class='flair flair-optc flair-118' id='118'></div>
+<div onclick='fselect(119)' class='flair flair-optc flair-119' id='119'></div>
+<div onclick='fselect(120)' class='flair flair-optc flair-120' id='120'></div>
+<div onclick='fselect(121)' class='flair flair-optc flair-121' id='121'></div>
+<div onclick='fselect(122)' class='flair flair-optc flair-122' id='122'></div>
+<div onclick='fselect(123)' class='flair flair-optc flair-123' id='123'></div>
+<div onclick='fselect(124)' class='flair flair-optc flair-124' id='124'></div>
+<div onclick='fselect(125)' class='flair flair-optc flair-125' id='125'></div>
+<div onclick='fselect(126)' class='flair flair-optc flair-126' id='126'></div>
+<div onclick='fselect(127)' class='flair flair-optc flair-127' id='127'></div>
+<div onclick='fselect(128)' class='flair flair-optc flair-128' id='128'></div>
+<div onclick='fselect(129)' class='flair flair-optc flair-129' id='129'></div>
+<div onclick='fselect(130)' class='flair flair-optc flair-130' id='130'></div>
+<div onclick='fselect(131)' class='flair flair-optc flair-131' id='131'></div>
+<div onclick='fselect(132)' class='flair flair-optc flair-132' id='132'></div>
+<div onclick='fselect(133)' class='flair flair-optc flair-133' id='133'></div>
+<div onclick='fselect(134)' class='flair flair-optc flair-134' id='134'></div>
+<div onclick='fselect(135)' class='flair flair-optc flair-135' id='135'></div>
+<div onclick='fselect(136)' class='flair flair-optc flair-136' id='136'></div>
+<div onclick='fselect(137)' class='flair flair-optc flair-137' id='137'></div>
+<div onclick='fselect(138)' class='flair flair-optc flair-138' id='138'></div>
+<div onclick='fselect(139)' class='flair flair-optc flair-139' id='139'></div>
+<div onclick='fselect(140)' class='flair flair-optc flair-140' id='140'></div>
+<div onclick='fselect(141)' class='flair flair-optc flair-141' id='141'></div>
+<div onclick='fselect(142)' class='flair flair-optc flair-142' id='142'></div>
+<div onclick='fselect(143)' class='flair flair-optc flair-143' id='143'></div>
+<div onclick='fselect(144)' class='flair flair-optc flair-144' id='144'></div>
+<div onclick='fselect(145)' class='flair flair-optc flair-145' id='145'></div>
+<div onclick='fselect(146)' class='flair flair-optc flair-146' id='146'></div>
+<div onclick='fselect(147)' class='flair flair-optc flair-147' id='147'></div>
+<div onclick='fselect(148)' class='flair flair-optc flair-148' id='148'></div>
+<div onclick='fselect(149)' class='flair flair-optc flair-149' id='149'></div>
+<div onclick='fselect(150)' class='flair flair-optc flair-150' id='150'></div>
+<div onclick='fselect(151)' class='flair flair-optc flair-151' id='151'></div>
+<div onclick='fselect(152)' class='flair flair-optc flair-152' id='152'></div>
+<div onclick='fselect(153)' class='flair flair-optc flair-153' id='153'></div>
+<div onclick='fselect(154)' class='flair flair-optc flair-154' id='154'></div>
+<div onclick='fselect(155)' class='flair flair-optc flair-155' id='155'></div>
+<div onclick='fselect(156)' class='flair flair-optc flair-156' id='156'></div>
+<div onclick='fselect(157)' class='flair flair-optc flair-157' id='157'></div>
+<div onclick='fselect(158)' class='flair flair-optc flair-158' id='158'></div>
+<div onclick='fselect(159)' class='flair flair-optc flair-159' id='159'></div>
+<div onclick='fselect(160)' class='flair flair-optc flair-160' id='160'></div>
+<div onclick='fselect(161)' class='flair flair-optc flair-161' id='161'></div>
+<div onclick='fselect(162)' class='flair flair-optc flair-162' id='162'></div>
+<div onclick='fselect(163)' class='flair flair-optc flair-163' id='163'></div>
+<div onclick='fselect(164)' class='flair flair-optc flair-164' id='164'></div>
+<div onclick='fselect(165)' class='flair flair-optc flair-165' id='165'></div>
+<div onclick='fselect(166)' class='flair flair-optc flair-166' id='166'></div>
+<div onclick='fselect(167)' class='flair flair-optc flair-167' id='167'></div>
+<div onclick='fselect(168)' class='flair flair-optc flair-168' id='168'></div>
+<div onclick='fselect(169)' class='flair flair-optc flair-169' id='169'></div>
+<div onclick='fselect(170)' class='flair flair-optc flair-170' id='170'></div>
+<div onclick='fselect(171)' class='flair flair-optc flair-171' id='171'></div>
+<div onclick='fselect(172)' class='flair flair-optc flair-172' id='172'></div>
+<div onclick='fselect(173)' class='flair flair-optc flair-173' id='173'></div>
+<div onclick='fselect(174)' class='flair flair-optc flair-174' id='174'></div>
+<div onclick='fselect(175)' class='flair flair-optc flair-175' id='175'></div>
+<div onclick='fselect(176)' class='flair flair-optc flair-176' id='176'></div>
+<div onclick='fselect(177)' class='flair flair-optc flair-177' id='177'></div>
+<div onclick='fselect(178)' class='flair flair-optc flair-178' id='178'></div>
+<div onclick='fselect(179)' class='flair flair-optc flair-179' id='179'></div>
+<div onclick='fselect(180)' class='flair flair-optc flair-180' id='180'></div>
+<div onclick='fselect(181)' class='flair flair-optc flair-181' id='181'></div>
+<div onclick='fselect(182)' class='flair flair-optc flair-182' id='182'></div>
+<div onclick='fselect(183)' class='flair flair-optc flair-183' id='183'></div>
+<div onclick='fselect(184)' class='flair flair-optc flair-184' id='184'></div>
+<div onclick='fselect(185)' class='flair flair-optc flair-185' id='185'></div>
+<div onclick='fselect(186)' class='flair flair-optc flair-186' id='186'></div>
+<div onclick='fselect(187)' class='flair flair-optc flair-187' id='187'></div>
+<div onclick='fselect(188)' class='flair flair-optc flair-188' id='188'></div>
+<div onclick='fselect(189)' class='flair flair-optc flair-189' id='189'></div>
+<div onclick='fselect(190)' class='flair flair-optc flair-190' id='190'></div>
+<div onclick='fselect(191)' class='flair flair-optc flair-191' id='191'></div>
+<div onclick='fselect(192)' class='flair flair-optc flair-192' id='192'></div>
+<div onclick='fselect(193)' class='flair flair-optc flair-193' id='193'></div>
+<div onclick='fselect(194)' class='flair flair-optc flair-194' id='194'></div>
+<div onclick='fselect(195)' class='flair flair-optc flair-195' id='195'></div>
+<div onclick='fselect(196)' class='flair flair-optc flair-196' id='196'></div>
+<div onclick='fselect(197)' class='flair flair-optc flair-197' id='197'></div>
+<div onclick='fselect(198)' class='flair flair-optc flair-198' id='198'></div>
+<div onclick='fselect(199)' class='flair flair-optc flair-199' id='199'></div>
+<div onclick='fselect(200)' class='flair flair-optc flair-200' id='200'></div>
+<div onclick='fselect(201)' class='flair flair-optc flair-201' id='201'></div>
+<div onclick='fselect(202)' class='flair flair-optc flair-202' id='202'></div>
+<div onclick='fselect(203)' class='flair flair-optc flair-203' id='203'></div>
+<div onclick='fselect(204)' class='flair flair-optc flair-204' id='204'></div>
+<div onclick='fselect(205)' class='flair flair-optc flair-205' id='205'></div>
+<div onclick='fselect(206)' class='flair flair-optc flair-206' id='206'></div>
+<div onclick='fselect(207)' class='flair flair-optc flair-207' id='207'></div>
+<div onclick='fselect(208)' class='flair flair-optc flair-208' id='208'></div>
+<div onclick='fselect(209)' class='flair flair-optc flair-209' id='209'></div>
+<div onclick='fselect(210)' class='flair flair-optc flair-210' id='210'></div>
+<div onclick='fselect(211)' class='flair flair-optc flair-211' id='211'></div>
+<div onclick='fselect(212)' class='flair flair-optc flair-212' id='212'></div>
+<div onclick='fselect(213)' class='flair flair-optc flair-213' id='213'></div>
+<div onclick='fselect(214)' class='flair flair-optc flair-214' id='214'></div>
+<div onclick='fselect(215)' class='flair flair-optc flair-215' id='215'></div>
+<div onclick='fselect(216)' class='flair flair-optc flair-216' id='216'></div>
+<div onclick='fselect(217)' class='flair flair-optc flair-217' id='217'></div>
+<div onclick='fselect(218)' class='flair flair-optc flair-218' id='218'></div>
+<div onclick='fselect(219)' class='flair flair-optc flair-219' id='219'></div>
+<div onclick='fselect(220)' class='flair flair-optc flair-220' id='220'></div>
+<div onclick='fselect(221)' class='flair flair-optc flair-221' id='221'></div>
+<div onclick='fselect(222)' class='flair flair-optc flair-222' id='222'></div>
+<div onclick='fselect(223)' class='flair flair-optc flair-223' id='223'></div>
+<div onclick='fselect(224)' class='flair flair-optc flair-224' id='224'></div>
+<div onclick='fselect(225)' class='flair flair-optc flair-225' id='225'></div>
+<div onclick='fselect(226)' class='flair flair-optc flair-226' id='226'></div>
+<div onclick='fselect(227)' class='flair flair-optc flair-227' id='227'></div>
+<div onclick='fselect(228)' class='flair flair-optc flair-228' id='228'></div>
+<div onclick='fselect(229)' class='flair flair-optc flair-229' id='229'></div>
+<div onclick='fselect(230)' class='flair flair-optc flair-230' id='230'></div>
+<div onclick='fselect(231)' class='flair flair-optc flair-231' id='231'></div>
+<div onclick='fselect(232)' class='flair flair-optc flair-232' id='232'></div>
+<div onclick='fselect(233)' class='flair flair-optc flair-233' id='233'></div>
+<div onclick='fselect(234)' class='flair flair-optc flair-234' id='234'></div>
+<div onclick='fselect(235)' class='flair flair-optc flair-235' id='235'></div>
+<div onclick='fselect(236)' class='flair flair-optc flair-236' id='236'></div>
+<div onclick='fselect(237)' class='flair flair-optc flair-237' id='237'></div>
+<div onclick='fselect(238)' class='flair flair-optc flair-238' id='238'></div>
+<div onclick='fselect(239)' class='flair flair-optc flair-239' id='239'></div>
+<div onclick='fselect(240)' class='flair flair-optc flair-240' id='240'></div>
+<div onclick='fselect(241)' class='flair flair-optc flair-241' id='241'></div>
+<div onclick='fselect(242)' class='flair flair-optc flair-242' id='242'></div>
+<div onclick='fselect(243)' class='flair flair-optc flair-243' id='243'></div>
+<div onclick='fselect(244)' class='flair flair-optc flair-244' id='244'></div>
+<div onclick='fselect(245)' class='flair flair-optc flair-245' id='245'></div>
+<div onclick='fselect(246)' class='flair flair-optc flair-246' id='246'></div>
+<div onclick='fselect(247)' class='flair flair-optc flair-247' id='247'></div>
+<div onclick='fselect(248)' class='flair flair-optc flair-248' id='248'></div>
+<div onclick='fselect(249)' class='flair flair-optc flair-249' id='249'></div>
+<div onclick='fselect(250)' class='flair flair-optc flair-250' id='250'></div>
+<div onclick='fselect(251)' class='flair flair-optc flair-251' id='251'></div>
+<div onclick='fselect(252)' class='flair flair-optc flair-252' id='252'></div>
+<div onclick='fselect(253)' class='flair flair-optc flair-253' id='253'></div>
+<div onclick='fselect(254)' class='flair flair-optc flair-254' id='254'></div>
+<div onclick='fselect(255)' class='flair flair-optc flair-255' id='255'></div>
+<div onclick='fselect(256)' class='flair flair-optc flair-256' id='256'></div>
+<div onclick='fselect(257)' class='flair flair-optc flair-257' id='257'></div>
+<div onclick='fselect(258)' class='flair flair-optc flair-258' id='258'></div>
+<div onclick='fselect(259)' class='flair flair-optc flair-259' id='259'></div>
+<div onclick='fselect(260)' class='flair flair-optc flair-260' id='260'></div>
+<div onclick='fselect(261)' class='flair flair-optc flair-261' id='261'></div>
+<div onclick='fselect(262)' class='flair flair-optc flair-262' id='262'></div>
+<div onclick='fselect(263)' class='flair flair-optc flair-263' id='263'></div>
+<div onclick='fselect(264)' class='flair flair-optc flair-264' id='264'></div>
+<div onclick='fselect(265)' class='flair flair-optc flair-265' id='265'></div>
+<div onclick='fselect(266)' class='flair flair-optc flair-266' id='266'></div>
+<div onclick='fselect(267)' class='flair flair-optc flair-267' id='267'></div>
+<div onclick='fselect(268)' class='flair flair-optc flair-268' id='268'></div>
+<div onclick='fselect(269)' class='flair flair-optc flair-269' id='269'></div>
+<div onclick='fselect(270)' class='flair flair-optc flair-270' id='270'></div>
+<div onclick='fselect(271)' class='flair flair-optc flair-271' id='271'></div>
+<div onclick='fselect(272)' class='flair flair-optc flair-272' id='272'></div>
+<div onclick='fselect(273)' class='flair flair-optc flair-273' id='273'></div>
+<div onclick='fselect(274)' class='flair flair-optc flair-274' id='274'></div>
+<div onclick='fselect(275)' class='flair flair-optc flair-275' id='275'></div>
+<div onclick='fselect(276)' class='flair flair-optc flair-276' id='276'></div>
+<div onclick='fselect(277)' class='flair flair-optc flair-277' id='277'></div>
+<div onclick='fselect(278)' class='flair flair-optc flair-278' id='278'></div>
+<div onclick='fselect(279)' class='flair flair-optc flair-279' id='279'></div>
+<div onclick='fselect(280)' class='flair flair-optc flair-280' id='280'></div>
+<div onclick='fselect(281)' class='flair flair-optc flair-281' id='281'></div>
+<div onclick='fselect(282)' class='flair flair-optc flair-282' id='282'></div>
+<div onclick='fselect(283)' class='flair flair-optc flair-283' id='283'></div>
+<div onclick='fselect(284)' class='flair flair-optc flair-284' id='284'></div>
+<div onclick='fselect(285)' class='flair flair-optc flair-285' id='285'></div>
+<div onclick='fselect(286)' class='flair flair-optc flair-286' id='286'></div>
+<div onclick='fselect(287)' class='flair flair-optc flair-287' id='287'></div>
+<div onclick='fselect(288)' class='flair flair-optc flair-288' id='288'></div>
+<div onclick='fselect(289)' class='flair flair-optc flair-289' id='289'></div>
+<div onclick='fselect(290)' class='flair flair-optc flair-290' id='290'></div>
+<div onclick='fselect(291)' class='flair flair-optc flair-291' id='291'></div>
+<div onclick='fselect(292)' class='flair flair-optc flair-292' id='292'></div>
+<div onclick='fselect(293)' class='flair flair-optc flair-293' id='293'></div>
+<div onclick='fselect(294)' class='flair flair-optc flair-294' id='294'></div>
+<div onclick='fselect(295)' class='flair flair-optc flair-295' id='295'></div>
+<div onclick='fselect(296)' class='flair flair-optc flair-296' id='296'></div>
+<div onclick='fselect(297)' class='flair flair-optc flair-297' id='297'></div>
+<div onclick='fselect(298)' class='flair flair-optc flair-298' id='298'></div>
+<div onclick='fselect(299)' class='flair flair-optc flair-299' id='299'></div>
+<div onclick='fselect(300)' class='flair flair-optc flair-300' id='300'></div>
+<div onclick='fselect(301)' class='flair flair-optc flair-301' id='301'></div>
+<div onclick='fselect(302)' class='flair flair-optc flair-302' id='302'></div>
+<div onclick='fselect(303)' class='flair flair-optc flair-303' id='303'></div>
+<div onclick='fselect(304)' class='flair flair-optc flair-304' id='304'></div>
+<div onclick='fselect(305)' class='flair flair-optc flair-305' id='305'></div>
+<div onclick='fselect(306)' class='flair flair-optc flair-306' id='306'></div>
+<div onclick='fselect(307)' class='flair flair-optc flair-307' id='307'></div>
+<div onclick='fselect(308)' class='flair flair-optc flair-308' id='308'></div>
+<div onclick='fselect(309)' class='flair flair-optc flair-309' id='309'></div>
+<div onclick='fselect(310)' class='flair flair-optc flair-310' id='310'></div>
+<div onclick='fselect(311)' class='flair flair-optc flair-311' id='311'></div>
+<div onclick='fselect(312)' class='flair flair-optc flair-312' id='312'></div>
+<div onclick='fselect(313)' class='flair flair-optc flair-313' id='313'></div>
+<div onclick='fselect(314)' class='flair flair-optc flair-314' id='314'></div>
+<div onclick='fselect(315)' class='flair flair-optc flair-315' id='315'></div>
+<div onclick='fselect(316)' class='flair flair-optc flair-316' id='316'></div>
+<div onclick='fselect(317)' class='flair flair-optc flair-317' id='317'></div>
+<div onclick='fselect(318)' class='flair flair-optc flair-318' id='318'></div>
+<div onclick='fselect(319)' class='flair flair-optc flair-319' id='319'></div>
+<div onclick='fselect(320)' class='flair flair-optc flair-320' id='320'></div>
+<div onclick='fselect(321)' class='flair flair-optc flair-321' id='321'></div>
+<div onclick='fselect(322)' class='flair flair-optc flair-322' id='322'></div>
+<div onclick='fselect(323)' class='flair flair-optc flair-323' id='323'></div>
+<div onclick='fselect(324)' class='flair flair-optc flair-324' id='324'></div>
+<div onclick='fselect(325)' class='flair flair-optc flair-325' id='325'></div>
+<div onclick='fselect(326)' class='flair flair-optc flair-326' id='326'></div>
+<div onclick='fselect(327)' class='flair flair-optc flair-327' id='327'></div>
+<div onclick='fselect(328)' class='flair flair-optc flair-328' id='328'></div>
+<div onclick='fselect(329)' class='flair flair-optc flair-329' id='329'></div>
+<div onclick='fselect(330)' class='flair flair-optc flair-330' id='330'></div>
+<div onclick='fselect(331)' class='flair flair-optc flair-331' id='331'></div>
+<div onclick='fselect(332)' class='flair flair-optc flair-332' id='332'></div>
+<div onclick='fselect(333)' class='flair flair-optc flair-333' id='333'></div>
+<div onclick='fselect(334)' class='flair flair-optc flair-334' id='334'></div>
+<div onclick='fselect(335)' class='flair flair-optc flair-335' id='335'></div>
+<div onclick='fselect(336)' class='flair flair-optc flair-336' id='336'></div>
+<div onclick='fselect(337)' class='flair flair-optc flair-337' id='337'></div>
+<div onclick='fselect(338)' class='flair flair-optc flair-338' id='338'></div>
+<div onclick='fselect(339)' class='flair flair-optc flair-339' id='339'></div>
+<div onclick='fselect(340)' class='flair flair-optc flair-340' id='340'></div>
+<div onclick='fselect(341)' class='flair flair-optc flair-341' id='341'></div>
+<div onclick='fselect(342)' class='flair flair-optc flair-342' id='342'></div>
+<div onclick='fselect(343)' class='flair flair-optc flair-343' id='343'></div>
+<div onclick='fselect(344)' class='flair flair-optc flair-344' id='344'></div>
+<div onclick='fselect(345)' class='flair flair-optc flair-345' id='345'></div>
+<div onclick='fselect(346)' class='flair flair-optc flair-346' id='346'></div>
+<div onclick='fselect(347)' class='flair flair-optc flair-347' id='347'></div>
+<div onclick='fselect(348)' class='flair flair-optc flair-348' id='348'></div>
+<div onclick='fselect(349)' class='flair flair-optc flair-349' id='349'></div>
+<div onclick='fselect(350)' class='flair flair-optc flair-350' id='350'></div>
+<div onclick='fselect(351)' class='flair flair-optc flair-351' id='351'></div>
+<div onclick='fselect(352)' class='flair flair-optc flair-352' id='352'></div>
+<div onclick='fselect(353)' class='flair flair-optc flair-353' id='353'></div>
+<div onclick='fselect(354)' class='flair flair-optc flair-354' id='354'></div>
+<div onclick='fselect(355)' class='flair flair-optc flair-355' id='355'></div>
+<div onclick='fselect(356)' class='flair flair-optc flair-356' id='356'></div>
+<div onclick='fselect(357)' class='flair flair-optc flair-357' id='357'></div>
+<div onclick='fselect(358)' class='flair flair-optc flair-358' id='358'></div>
+<div onclick='fselect(359)' class='flair flair-optc flair-359' id='359'></div>
+<div onclick='fselect(360)' class='flair flair-optc flair-360' id='360'></div>
+<div onclick='fselect(361)' class='flair flair-optc flair-361' id='361'></div>
+<div onclick='fselect(362)' class='flair flair-optc flair-362' id='362'></div>
+<div onclick='fselect(363)' class='flair flair-optc flair-363' id='363'></div>
+<div onclick='fselect(364)' class='flair flair-optc flair-364' id='364'></div>
+<div onclick='fselect(365)' class='flair flair-optc flair-365' id='365'></div>
+<div onclick='fselect(366)' class='flair flair-optc flair-366' id='366'></div>
+<div onclick='fselect(367)' class='flair flair-optc flair-367' id='367'></div>
+<div onclick='fselect(368)' class='flair flair-optc flair-368' id='368'></div>
+<div onclick='fselect(369)' class='flair flair-optc flair-369' id='369'></div>
+<div onclick='fselect(370)' class='flair flair-optc flair-370' id='370'></div>
+<div onclick='fselect(371)' class='flair flair-optc flair-371' id='371'></div>
+<div onclick='fselect(372)' class='flair flair-optc flair-372' id='372'></div>
+<div onclick='fselect(373)' class='flair flair-optc flair-373' id='373'></div>
+<div onclick='fselect(374)' class='flair flair-optc flair-374' id='374'></div>
+<div onclick='fselect(375)' class='flair flair-optc flair-375' id='375'></div>
+<div onclick='fselect(376)' class='flair flair-optc flair-376' id='376'></div>
+<div onclick='fselect(377)' class='flair flair-optc flair-377' id='377'></div>
+<div onclick='fselect(378)' class='flair flair-optc flair-378' id='378'></div>
+<div onclick='fselect(379)' class='flair flair-optc flair-379' id='379'></div>
+<div onclick='fselect(380)' class='flair flair-optc flair-380' id='380'></div>
+<div onclick='fselect(381)' class='flair flair-optc flair-381' id='381'></div>
+<div onclick='fselect(382)' class='flair flair-optc flair-382' id='382'></div>
+<div onclick='fselect(383)' class='flair flair-optc flair-383' id='383'></div>
+<div onclick='fselect(384)' class='flair flair-optc flair-384' id='384'></div>
+<div onclick='fselect(385)' class='flair flair-optc flair-385' id='385'></div>
+<div onclick='fselect(386)' class='flair flair-optc flair-386' id='386'></div>
+<div onclick='fselect(387)' class='flair flair-optc flair-387' id='387'></div>
+<div onclick='fselect(388)' class='flair flair-optc flair-388' id='388'></div>
+<div onclick='fselect(389)' class='flair flair-optc flair-389' id='389'></div>
+<div onclick='fselect(390)' class='flair flair-optc flair-390' id='390'></div>
+<div onclick='fselect(391)' class='flair flair-optc flair-391' id='391'></div>
+<div onclick='fselect(392)' class='flair flair-optc flair-392' id='392'></div>
+<div onclick='fselect(393)' class='flair flair-optc flair-393' id='393'></div>
+<div onclick='fselect(394)' class='flair flair-optc flair-394' id='394'></div>
+<div onclick='fselect(395)' class='flair flair-optc flair-395' id='395'></div>
+<div onclick='fselect(396)' class='flair flair-optc flair-396' id='396'></div>
+<div onclick='fselect(397)' class='flair flair-optc flair-397' id='397'></div>
+<div onclick='fselect(398)' class='flair flair-optc flair-398' id='398'></div>
+<div onclick='fselect(399)' class='flair flair-optc flair-399' id='399'></div>
+<div onclick='fselect(400)' class='flair flair-optc flair-400' id='400'></div>
+<div onclick='fselect(401)' class='flair flair-optc flair-401' id='401'></div>
+<div onclick='fselect(402)' class='flair flair-optc flair-402' id='402'></div>
+<div onclick='fselect(403)' class='flair flair-optc flair-403' id='403'></div>
+<div onclick='fselect(404)' class='flair flair-optc flair-404' id='404'></div>
+<div onclick='fselect(405)' class='flair flair-optc flair-405' id='405'></div>
+<div onclick='fselect(406)' class='flair flair-optc flair-406' id='406'></div>
+<div onclick='fselect(407)' class='flair flair-optc flair-407' id='407'></div>
+<div onclick='fselect(408)' class='flair flair-optc flair-408' id='408'></div>
+<div onclick='fselect(409)' class='flair flair-optc flair-409' id='409'></div>
+<div onclick='fselect(410)' class='flair flair-optc flair-410' id='410'></div>
+<div onclick='fselect(411)' class='flair flair-optc flair-411' id='411'></div>
+<div onclick='fselect(412)' class='flair flair-optc flair-412' id='412'></div>
+<div onclick='fselect(413)' class='flair flair-optc flair-413' id='413'></div>
+<div onclick='fselect(414)' class='flair flair-optc flair-414' id='414'></div>
+<div onclick='fselect(415)' class='flair flair-optc flair-415' id='415'></div>
+<div onclick='fselect(416)' class='flair flair-optc flair-416' id='416'></div>
+<div onclick='fselect(417)' class='flair flair-optc flair-417' id='417'></div>
+<div onclick='fselect(418)' class='flair flair-optc flair-418' id='418'></div>
+<div onclick='fselect(419)' class='flair flair-optc flair-419' id='419'></div>
+<div onclick='fselect(420)' class='flair flair-optc flair-420' id='420'></div>
+<div onclick='fselect(421)' class='flair flair-optc flair-421' id='421'></div>
+<div onclick='fselect(422)' class='flair flair-optc flair-422' id='422'></div>
+<div onclick='fselect(423)' class='flair flair-optc flair-423' id='423'></div>
+<div onclick='fselect(424)' class='flair flair-optc flair-424' id='424'></div>
+<div onclick='fselect(425)' class='flair flair-optc flair-425' id='425'></div>
+<div onclick='fselect(426)' class='flair flair-optc flair-426' id='426'></div>
+<div onclick='fselect(427)' class='flair flair-optc flair-427' id='427'></div>
+<div onclick='fselect(428)' class='flair flair-optc flair-428' id='428'></div>
+<div onclick='fselect(429)' class='flair flair-optc flair-429' id='429'></div>
+<div onclick='fselect(430)' class='flair flair-optc flair-430' id='430'></div>
+<div onclick='fselect(431)' class='flair flair-optc flair-431' id='431'></div>
+<div onclick='fselect(432)' class='flair flair-optc flair-432' id='432'></div>
+<div onclick='fselect(433)' class='flair flair-optc flair-433' id='433'></div>
+<div onclick='fselect(434)' class='flair flair-optc flair-434' id='434'></div>
+<div onclick='fselect(435)' class='flair flair-optc flair-435' id='435'></div>
+<div onclick='fselect(436)' class='flair flair-optc flair-436' id='436'></div>
+<div onclick='fselect(437)' class='flair flair-optc flair-437' id='437'></div>
+<div onclick='fselect(438)' class='flair flair-optc flair-438' id='438'></div>
+<div onclick='fselect(439)' class='flair flair-optc flair-439' id='439'></div>
+<div onclick='fselect(440)' class='flair flair-optc flair-440' id='440'></div>
+<div onclick='fselect(441)' class='flair flair-optc flair-441' id='441'></div>
+<div onclick='fselect(442)' class='flair flair-optc flair-442' id='442'></div>
+<div onclick='fselect(443)' class='flair flair-optc flair-443' id='443'></div>
+<div onclick='fselect(444)' class='flair flair-optc flair-444' id='444'></div>
+<div onclick='fselect(445)' class='flair flair-optc flair-445' id='445'></div>
+<div onclick='fselect(446)' class='flair flair-optc flair-446' id='446'></div>
+<div onclick='fselect(447)' class='flair flair-optc flair-447' id='447'></div>
+<div onclick='fselect(448)' class='flair flair-optc flair-448' id='448'></div>
+<div onclick='fselect(449)' class='flair flair-optc flair-449' id='449'></div>
+<div onclick='fselect(450)' class='flair flair-optc flair-450' id='450'></div>
+<div onclick='fselect(451)' class='flair flair-optc flair-451' id='451'></div>
+<div onclick='fselect(452)' class='flair flair-optc flair-452' id='452'></div>
+<div onclick='fselect(453)' class='flair flair-optc flair-453' id='453'></div>
+<div onclick='fselect(454)' class='flair flair-optc flair-454' id='454'></div>
+<div onclick='fselect(455)' class='flair flair-optc flair-455' id='455'></div>
+<div onclick='fselect(456)' class='flair flair-optc flair-456' id='456'></div>
+<div onclick='fselect(457)' class='flair flair-optc flair-457' id='457'></div>
+<div onclick='fselect(458)' class='flair flair-optc flair-458' id='458'></div>
+<div onclick='fselect(459)' class='flair flair-optc flair-459' id='459'></div>
+<div onclick='fselect(460)' class='flair flair-optc flair-460' id='460'></div>
+<div onclick='fselect(461)' class='flair flair-optc flair-461' id='461'></div>
+<div onclick='fselect(462)' class='flair flair-optc flair-462' id='462'></div>
+<div onclick='fselect(463)' class='flair flair-optc flair-463' id='463'></div>
+<div onclick='fselect(464)' class='flair flair-optc flair-464' id='464'></div>
+<div onclick='fselect(465)' class='flair flair-optc flair-465' id='465'></div>
+<div onclick='fselect(466)' class='flair flair-optc flair-466' id='466'></div>
+<div onclick='fselect(467)' class='flair flair-optc flair-467' id='467'></div>
+<div onclick='fselect(468)' class='flair flair-optc flair-468' id='468'></div>
+<div onclick='fselect(469)' class='flair flair-optc flair-469' id='469'></div>
+<div onclick='fselect(470)' class='flair flair-optc flair-470' id='470'></div>
+<div onclick='fselect(471)' class='flair flair-optc flair-471' id='471'></div>
+<div onclick='fselect(472)' class='flair flair-optc flair-472' id='472'></div>
+<div onclick='fselect(473)' class='flair flair-optc flair-473' id='473'></div>
+<div onclick='fselect(474)' class='flair flair-optc flair-474' id='474'></div>
+<div onclick='fselect(475)' class='flair flair-optc flair-475' id='475'></div>
+<div onclick='fselect(476)' class='flair flair-optc flair-476' id='476'></div>
+<div onclick='fselect(477)' class='flair flair-optc flair-477' id='477'></div>
+<div onclick='fselect(478)' class='flair flair-optc flair-478' id='478'></div>
+<div onclick='fselect(479)' class='flair flair-optc flair-479' id='479'></div>
+<div onclick='fselect(480)' class='flair flair-optc flair-480' id='480'></div>
+<div onclick='fselect(481)' class='flair flair-optc flair-481' id='481'></div>
+<div onclick='fselect(482)' class='flair flair-optc flair-482' id='482'></div>
+<div onclick='fselect(483)' class='flair flair-optc flair-483' id='483'></div>
+<div onclick='fselect(484)' class='flair flair-optc flair-484' id='484'></div>
+<div onclick='fselect(485)' class='flair flair-optc flair-485' id='485'></div>
+<div onclick='fselect(486)' class='flair flair-optc flair-486' id='486'></div>
+<div onclick='fselect(487)' class='flair flair-optc flair-487' id='487'></div>
+<div onclick='fselect(488)' class='flair flair-optc flair-488' id='488'></div>
+<div onclick='fselect(489)' class='flair flair-optc flair-489' id='489'></div>
+<div onclick='fselect(490)' class='flair flair-optc flair-490' id='490'></div>
+<div onclick='fselect(491)' class='flair flair-optc flair-491' id='491'></div>
+<div onclick='fselect(492)' class='flair flair-optc flair-492' id='492'></div>
+<div onclick='fselect(493)' class='flair flair-optc flair-493' id='493'></div>
+<div onclick='fselect(494)' class='flair flair-optc flair-494' id='494'></div>
+<div onclick='fselect(495)' class='flair flair-optc flair-495' id='495'></div>
+<div onclick='fselect(496)' class='flair flair-optc flair-496' id='496'></div>
+<div onclick='fselect(497)' class='flair flair-optc flair-497' id='497'></div>
+<div onclick='fselect(498)' class='flair flair-optc flair-498' id='498'></div>
+<div onclick='fselect(499)' class='flair flair-optc flair-499' id='499'></div>
+<div onclick='fselect(500)' class='flair flair-optc flair-500' id='500'></div>
+<div onclick='fselect(501)' class='flair flair-optc flair-501' id='501'></div>
+<div onclick='fselect(502)' class='flair flair-optc flair-502' id='502'></div>
+<div onclick='fselect(503)' class='flair flair-optc flair-503' id='503'></div>
+<div onclick='fselect(504)' class='flair flair-optc flair-504' id='504'></div>
+<div onclick='fselect(505)' class='flair flair-optc flair-505' id='505'></div>
+<div onclick='fselect(506)' class='flair flair-optc flair-506' id='506'></div>
+<div onclick='fselect(507)' class='flair flair-optc flair-507' id='507'></div>
+<div onclick='fselect(508)' class='flair flair-optc flair-508' id='508'></div>
+<div onclick='fselect(509)' class='flair flair-optc flair-509' id='509'></div>
+<div onclick='fselect(510)' class='flair flair-optc flair-510' id='510'></div>
+<div onclick='fselect(511)' class='flair flair-optc flair-511' id='511'></div>
+<div onclick='fselect(512)' class='flair flair-optc flair-512' id='512'></div>
+<div onclick='fselect(513)' class='flair flair-optc flair-513' id='513'></div>
+<div onclick='fselect(514)' class='flair flair-optc flair-514' id='514'></div>
+<div onclick='fselect(515)' class='flair flair-optc flair-515' id='515'></div>
+<div onclick='fselect(516)' class='flair flair-optc flair-516' id='516'></div>
+<div onclick='fselect(517)' class='flair flair-optc flair-517' id='517'></div>
+<div onclick='fselect(518)' class='flair flair-optc flair-518' id='518'></div>
+<div onclick='fselect(519)' class='flair flair-optc flair-519' id='519'></div>
+<div onclick='fselect(520)' class='flair flair-optc flair-520' id='520'></div>
+<div onclick='fselect(521)' class='flair flair-optc flair-521' id='521'></div>
+<div onclick='fselect(522)' class='flair flair-optc flair-522' id='522'></div>
+<div onclick='fselect(523)' class='flair flair-optc flair-523' id='523'></div>
+<div onclick='fselect(524)' class='flair flair-optc flair-524' id='524'></div>
+<div onclick='fselect(525)' class='flair flair-optc flair-525' id='525'></div>
+<div onclick='fselect(526)' class='flair flair-optc flair-526' id='526'></div>
+<div onclick='fselect(527)' class='flair flair-optc flair-527' id='527'></div>
+<div onclick='fselect(528)' class='flair flair-optc flair-528' id='528'></div>
+<div onclick='fselect(529)' class='flair flair-optc flair-529' id='529'></div>
+<div onclick='fselect(530)' class='flair flair-optc flair-530' id='530'></div>
+<div onclick='fselect(531)' class='flair flair-optc flair-531' id='531'></div>
+<div onclick='fselect(532)' class='flair flair-optc flair-532' id='532'></div>
+<div onclick='fselect(533)' class='flair flair-optc flair-533' id='533'></div>
+<div onclick='fselect(534)' class='flair flair-optc flair-534' id='534'></div>
+<div onclick='fselect(535)' class='flair flair-optc flair-535' id='535'></div>
+<div onclick='fselect(536)' class='flair flair-optc flair-536' id='536'></div>
+<div onclick='fselect(537)' class='flair flair-optc flair-537' id='537'></div>
+<div onclick='fselect(538)' class='flair flair-optc flair-538' id='538'></div>
+<div onclick='fselect(539)' class='flair flair-optc flair-539' id='539'></div>
+<div onclick='fselect(540)' class='flair flair-optc flair-540' id='540'></div>
+<div onclick='fselect(541)' class='flair flair-optc flair-541' id='541'></div>
+<div onclick='fselect(542)' class='flair flair-optc flair-542' id='542'></div>
+<div onclick='fselect(543)' class='flair flair-optc flair-543' id='543'></div>
+<div onclick='fselect(544)' class='flair flair-optc flair-544' id='544'></div>
+<div onclick='fselect(545)' class='flair flair-optc flair-545' id='545'></div>
+<div onclick='fselect(546)' class='flair flair-optc flair-546' id='546'></div>
+<div onclick='fselect(547)' class='flair flair-optc flair-547' id='547'></div>
+<div onclick='fselect(548)' class='flair flair-optc flair-548' id='548'></div>
+<div onclick='fselect(549)' class='flair flair-optc flair-549' id='549'></div>
+<div onclick='fselect(550)' class='flair flair-optc flair-550' id='550'></div>
+<div onclick='fselect(551)' class='flair flair-optc flair-551' id='551'></div>
+<div onclick='fselect(552)' class='flair flair-optc flair-552' id='552'></div>
+<div onclick='fselect(553)' class='flair flair-optc flair-553' id='553'></div>
+<div onclick='fselect(554)' class='flair flair-optc flair-554' id='554'></div>
+<div onclick='fselect(555)' class='flair flair-optc flair-555' id='555'></div>
+<div onclick='fselect(556)' class='flair flair-optc flair-556' id='556'></div>
+<div onclick='fselect(557)' class='flair flair-optc flair-557' id='557'></div>
+<div onclick='fselect(558)' class='flair flair-optc flair-558' id='558'></div>
+<div onclick='fselect(559)' class='flair flair-optc flair-559' id='559'></div>
+<div onclick='fselect(560)' class='flair flair-optc flair-560' id='560'></div>
+<div onclick='fselect(561)' class='flair flair-optc flair-561' id='561'></div>
+<div onclick='fselect(562)' class='flair flair-optc flair-562' id='562'></div>
+<div onclick='fselect(563)' class='flair flair-optc flair-563' id='563'></div>
+<div onclick='fselect(564)' class='flair flair-optc flair-564' id='564'></div>
+<div onclick='fselect(565)' class='flair flair-optc flair-565' id='565'></div>
+<div onclick='fselect(566)' class='flair flair-optc flair-566' id='566'></div>
+<div onclick='fselect(567)' class='flair flair-optc flair-567' id='567'></div>
+<div onclick='fselect(568)' class='flair flair-optc flair-568' id='568'></div>
+<div onclick='fselect(569)' class='flair flair-optc flair-569' id='569'></div>
+<div onclick='fselect(570)' class='flair flair-optc flair-570' id='570'></div>
+<div onclick='fselect(571)' class='flair flair-optc flair-571' id='571'></div>
+<div onclick='fselect(572)' class='flair flair-optc flair-572' id='572'></div>
+<div onclick='fselect(573)' class='flair flair-optc flair-573' id='573'></div>
+<div onclick='fselect(574)' class='flair flair-optc flair-574' id='574'></div>
+<div onclick='fselect(575)' class='flair flair-optc flair-575' id='575'></div>
+<div onclick='fselect(576)' class='flair flair-optc flair-576' id='576'></div>
+<div onclick='fselect(577)' class='flair flair-optc flair-577' id='577'></div>
+<div onclick='fselect(578)' class='flair flair-optc flair-578' id='578'></div>
+<div onclick='fselect(579)' class='flair flair-optc flair-579' id='579'></div>
+<div onclick='fselect(580)' class='flair flair-optc flair-580' id='580'></div>
+<div onclick='fselect(581)' class='flair flair-optc flair-581' id='581'></div>
+<div onclick='fselect(582)' class='flair flair-optc flair-582' id='582'></div>
+<div onclick='fselect(583)' class='flair flair-optc flair-583' id='583'></div>
+<div onclick='fselect(584)' class='flair flair-optc flair-584' id='584'></div>
+<div onclick='fselect(585)' class='flair flair-optc flair-585' id='585'></div>
+<div onclick='fselect(586)' class='flair flair-optc flair-586' id='586'></div>
+<div onclick='fselect(587)' class='flair flair-optc flair-587' id='587'></div>
+<div onclick='fselect(588)' class='flair flair-optc flair-588' id='588'></div>
+<div onclick='fselect(589)' class='flair flair-optc flair-589' id='589'></div>
+<div onclick='fselect(590)' class='flair flair-optc flair-590' id='590'></div>
+<div onclick='fselect(591)' class='flair flair-optc flair-591' id='591'></div>
+<div onclick='fselect(592)' class='flair flair-optc flair-592' id='592'></div>
+<div onclick='fselect(593)' class='flair flair-optc flair-593' id='593'></div>
+<div onclick='fselect(594)' class='flair flair-optc flair-594' id='594'></div>
+<div onclick='fselect(595)' class='flair flair-optc flair-595' id='595'></div>
+<div onclick='fselect(596)' class='flair flair-optc flair-596' id='596'></div>
+<div onclick='fselect(597)' class='flair flair-optc flair-597' id='597'></div>
+<div onclick='fselect(598)' class='flair flair-optc flair-598' id='598'></div>
+<div onclick='fselect(599)' class='flair flair-optc flair-599' id='599'></div>
+<div onclick='fselect(600)' class='flair flair-optc flair-600' id='600'></div>
+<div onclick='fselect(601)' class='flair flair-optc flair-601' id='601'></div>
+<div onclick='fselect(602)' class='flair flair-optc flair-602' id='602'></div>
+<div onclick='fselect(603)' class='flair flair-optc flair-603' id='603'></div>
+<div onclick='fselect(604)' class='flair flair-optc flair-604' id='604'></div>
+<div onclick='fselect(605)' class='flair flair-optc flair-605' id='605'></div>
+<div onclick='fselect(606)' class='flair flair-optc flair-606' id='606'></div>
+<div onclick='fselect(607)' class='flair flair-optc flair-607' id='607'></div>
+<div onclick='fselect(608)' class='flair flair-optc flair-608' id='608'></div>
+<div onclick='fselect(609)' class='flair flair-optc flair-609' id='609'></div>
+<div onclick='fselect(610)' class='flair flair-optc flair-610' id='610'></div>
+<div onclick='fselect(611)' class='flair flair-optc flair-611' id='611'></div>
+<div onclick='fselect(612)' class='flair flair-optc flair-612' id='612'></div>
+<div onclick='fselect(613)' class='flair flair-optc flair-613' id='613'></div>
+<div onclick='fselect(614)' class='flair flair-optc flair-614' id='614'></div>
+<div onclick='fselect(615)' class='flair flair-optc flair-615' id='615'></div>
+<div onclick='fselect(616)' class='flair flair-optc flair-616' id='616'></div>
+<div onclick='fselect(617)' class='flair flair-optc flair-617' id='617'></div>
+<div onclick='fselect(618)' class='flair flair-optc flair-618' id='618'></div>
+<div onclick='fselect(619)' class='flair flair-optc flair-619' id='619'></div>
+<div onclick='fselect(620)' class='flair flair-optc flair-620' id='620'></div>
+<div onclick='fselect(621)' class='flair flair-optc flair-621' id='621'></div>
+<div onclick='fselect(622)' class='flair flair-optc flair-622' id='622'></div>
+<div onclick='fselect(623)' class='flair flair-optc flair-623' id='623'></div>
+<div onclick='fselect(624)' class='flair flair-optc flair-624' id='624'></div>
+<div onclick='fselect(625)' class='flair flair-optc flair-625' id='625'></div>
+<div onclick='fselect(626)' class='flair flair-optc flair-626' id='626'></div>
+<div onclick='fselect(627)' class='flair flair-optc flair-627' id='627'></div>
+<div onclick='fselect(628)' class='flair flair-optc flair-628' id='628'></div>
+<div onclick='fselect(629)' class='flair flair-optc flair-629' id='629'></div>
+<div onclick='fselect(630)' class='flair flair-optc flair-630' id='630'></div>
+<div onclick='fselect(631)' class='flair flair-optc flair-631' id='631'></div>
+<div onclick='fselect(632)' class='flair flair-optc flair-632' id='632'></div>
+<div onclick='fselect(633)' class='flair flair-optc flair-633' id='633'></div>
+<div onclick='fselect(634)' class='flair flair-optc flair-634' id='634'></div>
+<div onclick='fselect(635)' class='flair flair-optc flair-635' id='635'></div>
+<div onclick='fselect(636)' class='flair flair-optc flair-636' id='636'></div>
+<div onclick='fselect(637)' class='flair flair-optc flair-637' id='637'></div>
+<div onclick='fselect(638)' class='flair flair-optc flair-638' id='638'></div>
+<div onclick='fselect(639)' class='flair flair-optc flair-639' id='639'></div>
+<div onclick='fselect(640)' class='flair flair-optc flair-640' id='640'></div>
+<div onclick='fselect(641)' class='flair flair-optc flair-641' id='641'></div>
+<div onclick='fselect(642)' class='flair flair-optc flair-642' id='642'></div>
+<div onclick='fselect(643)' class='flair flair-optc flair-643' id='643'></div>
+<div onclick='fselect(644)' class='flair flair-optc flair-644' id='644'></div>
+<div onclick='fselect(645)' class='flair flair-optc flair-645' id='645'></div>
+<div onclick='fselect(646)' class='flair flair-optc flair-646' id='646'></div>
+<div onclick='fselect(647)' class='flair flair-optc flair-647' id='647'></div>
+<div onclick='fselect(648)' class='flair flair-optc flair-648' id='648'></div>
+<div onclick='fselect(649)' class='flair flair-optc flair-649' id='649'></div>
+<div onclick='fselect(650)' class='flair flair-optc flair-650' id='650'></div>
+<div onclick='fselect(651)' class='flair flair-optc flair-651' id='651'></div>
+<div onclick='fselect(652)' class='flair flair-optc flair-652' id='652'></div>
+<div onclick='fselect(653)' class='flair flair-optc flair-653' id='653'></div>
+<div onclick='fselect(654)' class='flair flair-optc flair-654' id='654'></div>
+<div onclick='fselect(655)' class='flair flair-optc flair-655' id='655'></div>
+<div onclick='fselect(656)' class='flair flair-optc flair-656' id='656'></div>
+<div onclick='fselect(657)' class='flair flair-optc flair-657' id='657'></div>
+<div onclick='fselect(658)' class='flair flair-optc flair-658' id='658'></div>
+<div onclick='fselect(659)' class='flair flair-optc flair-659' id='659'></div>
+<div onclick='fselect(660)' class='flair flair-optc flair-660' id='660'></div>
+<div onclick='fselect(661)' class='flair flair-optc flair-661' id='661'></div>
+<div onclick='fselect(662)' class='flair flair-optc flair-662' id='662'></div>
+<div onclick='fselect(663)' class='flair flair-optc flair-663' id='663'></div>
+<div onclick='fselect(664)' class='flair flair-optc flair-664' id='664'></div>
+<div onclick='fselect(665)' class='flair flair-optc flair-665' id='665'></div>
+<div onclick='fselect(666)' class='flair flair-optc flair-666' id='666'></div>
+<div onclick='fselect(667)' class='flair flair-optc flair-667' id='667'></div>
+<div onclick='fselect(668)' class='flair flair-optc flair-668' id='668'></div>
+<div onclick='fselect(669)' class='flair flair-optc flair-669' id='669'></div>
+<div onclick='fselect(670)' class='flair flair-optc flair-670' id='670'></div>
+<div onclick='fselect(671)' class='flair flair-optc flair-671' id='671'></div>
+<div onclick='fselect(672)' class='flair flair-optc flair-672' id='672'></div>
+<div onclick='fselect(673)' class='flair flair-optc flair-673' id='673'></div>
+<div onclick='fselect(674)' class='flair flair-optc flair-674' id='674'></div>
+<div onclick='fselect(675)' class='flair flair-optc flair-675' id='675'></div>
+<div onclick='fselect(676)' class='flair flair-optc flair-676' id='676'></div>
+<div onclick='fselect(677)' class='flair flair-optc flair-677' id='677'></div>
+<div onclick='fselect(678)' class='flair flair-optc flair-678' id='678'></div>
+<div onclick='fselect(679)' class='flair flair-optc flair-679' id='679'></div>
+<div onclick='fselect(680)' class='flair flair-optc flair-680' id='680'></div>
+<div onclick='fselect(681)' class='flair flair-optc flair-681' id='681'></div>
+<div onclick='fselect(682)' class='flair flair-optc flair-682' id='682'></div>
+<div onclick='fselect(683)' class='flair flair-optc flair-683' id='683'></div>
+<div onclick='fselect(684)' class='flair flair-optc flair-684' id='684'></div>
+<div onclick='fselect(685)' class='flair flair-optc flair-685' id='685'></div>
+<div onclick='fselect(686)' class='flair flair-optc flair-686' id='686'></div>
+<div onclick='fselect(687)' class='flair flair-optc flair-687' id='687'></div>
+<div onclick='fselect(688)' class='flair flair-optc flair-688' id='688'></div>
+<div onclick='fselect(689)' class='flair flair-optc flair-689' id='689'></div>
+<div onclick='fselect(690)' class='flair flair-optc flair-690' id='690'></div>
+<div onclick='fselect(691)' class='flair flair-optc flair-691' id='691'></div>
+<div onclick='fselect(692)' class='flair flair-optc flair-692' id='692'></div>
+<div onclick='fselect(693)' class='flair flair-optc flair-693' id='693'></div>
+<div onclick='fselect(694)' class='flair flair-optc flair-694' id='694'></div>
+<div onclick='fselect(695)' class='flair flair-optc flair-695' id='695'></div>
+<div onclick='fselect(696)' class='flair flair-optc flair-696' id='696'></div>
+<div onclick='fselect(697)' class='flair flair-optc flair-697' id='697'></div>
+<div onclick='fselect(698)' class='flair flair-optc flair-698' id='698'></div>
+<div onclick='fselect(699)' class='flair flair-optc flair-699' id='699'></div>
+<div onclick='fselect(700)' class='flair flair-optc flair-700' id='700'></div>
+<div onclick='fselect(701)' class='flair flair-optc flair-701' id='701'></div>
+<div onclick='fselect(702)' class='flair flair-optc flair-702' id='702'></div>
+<div onclick='fselect(703)' class='flair flair-optc flair-703' id='703'></div>
+<div onclick='fselect(704)' class='flair flair-optc flair-704' id='704'></div>
+<div onclick='fselect(705)' class='flair flair-optc flair-705' id='705'></div>
+<div onclick='fselect(706)' class='flair flair-optc flair-706' id='706'></div>
+<div onclick='fselect(707)' class='flair flair-optc flair-707' id='707'></div>
+<div onclick='fselect(708)' class='flair flair-optc flair-708' id='708'></div>
+<div onclick='fselect(709)' class='flair flair-optc flair-709' id='709'></div>
+<div onclick='fselect(710)' class='flair flair-optc flair-710' id='710'></div>
+<div onclick='fselect(711)' class='flair flair-optc flair-711' id='711'></div>
+<div onclick='fselect(712)' class='flair flair-optc flair-712' id='712'></div>
+<div onclick='fselect(713)' class='flair flair-optc flair-713' id='713'></div>
+<div onclick='fselect(714)' class='flair flair-optc flair-714' id='714'></div>
+<div onclick='fselect(715)' class='flair flair-optc flair-715' id='715'></div>
+<div onclick='fselect(716)' class='flair flair-optc flair-716' id='716'></div>
+<div onclick='fselect(717)' class='flair flair-optc flair-717' id='717'></div>
+<div onclick='fselect(718)' class='flair flair-optc flair-718' id='718'></div>
+<div onclick='fselect(719)' class='flair flair-optc flair-719' id='719'></div>
+<div onclick='fselect(720)' class='flair flair-optc flair-720' id='720'></div>
+<div onclick='fselect(721)' class='flair flair-optc flair-721' id='721'></div>
+<div onclick='fselect(722)' class='flair flair-optc flair-722' id='722'></div>
+<div onclick='fselect(723)' class='flair flair-optc flair-723' id='723'></div>
+<div onclick='fselect(724)' class='flair flair-optc flair-724' id='724'></div>
+<div onclick='fselect(725)' class='flair flair-optc flair-725' id='725'></div>
+<div onclick='fselect(726)' class='flair flair-optc flair-726' id='726'></div>
+<div onclick='fselect(727)' class='flair flair-optc flair-727' id='727'></div>
+<div onclick='fselect(728)' class='flair flair-optc flair-728' id='728'></div>
+<div onclick='fselect(729)' class='flair flair-optc flair-729' id='729'></div>
+<div onclick='fselect(730)' class='flair flair-optc flair-730' id='730'></div>
+<div onclick='fselect(731)' class='flair flair-optc flair-731' id='731'></div>
+<div onclick='fselect(732)' class='flair flair-optc flair-732' id='732'></div>
+<div onclick='fselect(733)' class='flair flair-optc flair-733' id='733'></div>
+<div onclick='fselect(734)' class='flair flair-optc flair-734' id='734'></div>
+<div onclick='fselect(735)' class='flair flair-optc flair-735' id='735'></div>
+<div onclick='fselect(736)' class='flair flair-optc flair-736' id='736'></div>
+<div onclick='fselect(737)' class='flair flair-optc flair-737' id='737'></div>
+<div onclick='fselect(738)' class='flair flair-optc flair-738' id='738'></div>
+<div onclick='fselect(739)' class='flair flair-optc flair-739' id='739'></div>
+<div onclick='fselect(740)' class='flair flair-optc flair-740' id='740'></div>
+<div onclick='fselect(741)' class='flair flair-optc flair-741' id='741'></div>
+<div onclick='fselect(742)' class='flair flair-optc flair-742' id='742'></div>
+<div onclick='fselect(743)' class='flair flair-optc flair-743' id='743'></div>
+<div onclick='fselect(744)' class='flair flair-optc flair-744' id='744'></div>
+<div onclick='fselect(745)' class='flair flair-optc flair-745' id='745'></div>
+<div onclick='fselect(746)' class='flair flair-optc flair-746' id='746'></div>
+<div onclick='fselect(747)' class='flair flair-optc flair-747' id='747'></div>
+<div onclick='fselect(748)' class='flair flair-optc flair-748' id='748'></div>
+<div onclick='fselect(749)' class='flair flair-optc flair-749' id='749'></div>
+<div onclick='fselect(750)' class='flair flair-optc flair-750' id='750'></div>
+<div onclick='fselect(751)' class='flair flair-optc flair-751' id='751'></div>
+<div onclick='fselect(752)' class='flair flair-optc flair-752' id='752'></div>
+<div onclick='fselect(753)' class='flair flair-optc flair-753' id='753'></div>
+<div onclick='fselect(754)' class='flair flair-optc flair-754' id='754'></div>
+<div onclick='fselect(755)' class='flair flair-optc flair-755' id='755'></div>
+<div onclick='fselect(756)' class='flair flair-optc flair-756' id='756'></div>
+<div onclick='fselect(757)' class='flair flair-optc flair-757' id='757'></div>
+<div onclick='fselect(758)' class='flair flair-optc flair-758' id='758'></div>
+<div onclick='fselect(759)' class='flair flair-optc flair-759' id='759'></div>
+<div onclick='fselect(760)' class='flair flair-optc flair-760' id='760'></div>
+<div onclick='fselect(761)' class='flair flair-optc flair-761' id='761'></div>
+<div onclick='fselect(762)' class='flair flair-optc flair-762' id='762'></div>
+<div onclick='fselect(763)' class='flair flair-optc flair-763' id='763'></div>
+<div onclick='fselect(764)' class='flair flair-optc flair-764' id='764'></div>
+<div onclick='fselect(765)' class='flair flair-optc flair-765' id='765'></div>
+<div onclick='fselect(766)' class='flair flair-optc flair-766' id='766'></div>
+<div onclick='fselect(767)' class='flair flair-optc flair-767' id='767'></div>
+<div onclick='fselect(768)' class='flair flair-optc flair-768' id='768'></div>
+<div onclick='fselect(769)' class='flair flair-optc flair-769' id='769'></div>
+<div onclick='fselect(770)' class='flair flair-optc flair-770' id='770'></div>
+<div onclick='fselect(771)' class='flair flair-optc flair-771' id='771'></div>
+<div onclick='fselect(772)' class='flair flair-optc flair-772' id='772'></div>
+<div onclick='fselect(773)' class='flair flair-optc flair-773' id='773'></div>
+<div onclick='fselect(774)' class='flair flair-optc flair-774' id='774'></div>
+<div onclick='fselect(775)' class='flair flair-optc flair-775' id='775'></div>
+<div onclick='fselect(776)' class='flair flair-optc flair-776' id='776'></div>
+<div onclick='fselect(777)' class='flair flair-optc flair-777' id='777'></div>
+<div onclick='fselect(778)' class='flair flair-optc flair-778' id='778'></div>
+<div onclick='fselect(779)' class='flair flair-optc flair-779' id='779'></div>
+<div onclick='fselect(780)' class='flair flair-optc flair-780' id='780'></div>
+<div onclick='fselect(781)' class='flair flair-optc flair-781' id='781'></div>
+<div onclick='fselect(782)' class='flair flair-optc flair-782' id='782'></div>
+<div onclick='fselect(783)' class='flair flair-optc flair-783' id='783'></div>
+<div onclick='fselect(784)' class='flair flair-optc flair-784' id='784'></div>
+<div onclick='fselect(785)' class='flair flair-optc flair-785' id='785'></div>
+<div onclick='fselect(786)' class='flair flair-optc flair-786' id='786'></div>
+<div onclick='fselect(787)' class='flair flair-optc flair-787' id='787'></div>
+<div onclick='fselect(788)' class='flair flair-optc flair-788' id='788'></div>
+<div onclick='fselect(789)' class='flair flair-optc flair-789' id='789'></div>
+<div onclick='fselect(790)' class='flair flair-optc flair-790' id='790'></div>
+<div onclick='fselect(791)' class='flair flair-optc flair-791' id='791'></div>
+<div onclick='fselect(792)' class='flair flair-optc flair-792' id='792'></div>
+<div onclick='fselect(793)' class='flair flair-optc flair-793' id='793'></div>
+<div onclick='fselect(794)' class='flair flair-optc flair-794' id='794'></div>
+<div onclick='fselect(795)' class='flair flair-optc flair-795' id='795'></div>
+<div onclick='fselect(796)' class='flair flair-optc flair-796' id='796'></div>
+<div onclick='fselect(797)' class='flair flair-optc flair-797' id='797'></div>
+<div onclick='fselect(798)' class='flair flair-optc flair-798' id='798'></div>
+<div onclick='fselect(799)' class='flair flair-optc flair-799' id='799'></div>
+<div onclick='fselect(800)' class='flair flair-optc flair-800' id='800'></div>
+<div onclick='fselect(801)' class='flair flair-optc flair-801' id='801'></div>
+<div onclick='fselect(802)' class='flair flair-optc flair-802' id='802'></div>
+<div onclick='fselect(803)' class='flair flair-optc flair-803' id='803'></div>
+<div onclick='fselect(804)' class='flair flair-optc flair-804' id='804'></div>
+<div onclick='fselect(805)' class='flair flair-optc flair-805' id='805'></div>
+<div onclick='fselect(806)' class='flair flair-optc flair-806' id='806'></div>
+<div onclick='fselect(807)' class='flair flair-optc flair-807' id='807'></div>
+<div onclick='fselect(808)' class='flair flair-optc flair-808' id='808'></div>
+<div onclick='fselect(809)' class='flair flair-optc flair-809' id='809'></div>
+<div onclick='fselect(810)' class='flair flair-optc flair-810' id='810'></div>
+<div onclick='fselect(811)' class='flair flair-optc flair-811' id='811'></div>
+<div onclick='fselect(812)' class='flair flair-optc flair-812' id='812'></div>
+<div onclick='fselect(813)' class='flair flair-optc flair-813' id='813'></div>
+<div onclick='fselect(814)' class='flair flair-optc flair-814' id='814'></div>
+<div onclick='fselect(815)' class='flair flair-optc flair-815' id='815'></div>
+<div onclick='fselect(816)' class='flair flair-optc flair-816' id='816'></div>
+<div onclick='fselect(817)' class='flair flair-optc flair-817' id='817'></div>
+<div onclick='fselect(818)' class='flair flair-optc flair-818' id='818'></div>
+<div onclick='fselect(819)' class='flair flair-optc flair-819' id='819'></div>
+<div onclick='fselect(820)' class='flair flair-optc flair-820' id='820'></div>
+<div onclick='fselect(821)' class='flair flair-optc flair-821' id='821'></div>
+<div onclick='fselect(822)' class='flair flair-optc flair-822' id='822'></div>
+<div onclick='fselect(823)' class='flair flair-optc flair-823' id='823'></div>
+<div onclick='fselect(824)' class='flair flair-optc flair-824' id='824'></div>
+<div onclick='fselect(825)' class='flair flair-optc flair-825' id='825'></div>
+<div onclick='fselect(826)' class='flair flair-optc flair-826' id='826'></div>
+<div onclick='fselect(827)' class='flair flair-optc flair-827' id='827'></div>
+<div onclick='fselect(828)' class='flair flair-optc flair-828' id='828'></div>
+<div onclick='fselect(829)' class='flair flair-optc flair-829' id='829'></div>
+<div onclick='fselect(830)' class='flair flair-optc flair-830' id='830'></div>
+<div onclick='fselect(831)' class='flair flair-optc flair-831' id='831'></div>
+<div onclick='fselect(832)' class='flair flair-optc flair-832' id='832'></div>
+<div onclick='fselect(833)' class='flair flair-optc flair-833' id='833'></div>
+<div onclick='fselect(834)' class='flair flair-optc flair-834' id='834'></div>
+<div onclick='fselect(835)' class='flair flair-optc flair-835' id='835'></div>
+<div onclick='fselect(836)' class='flair flair-optc flair-836' id='836'></div>
+<div onclick='fselect(837)' class='flair flair-optc flair-837' id='837'></div>
+<div onclick='fselect(838)' class='flair flair-optc flair-838' id='838'></div>
+<div onclick='fselect(839)' class='flair flair-optc flair-839' id='839'></div>
+<div onclick='fselect(840)' class='flair flair-optc flair-840' id='840'></div>
+<div onclick='fselect(841)' class='flair flair-optc flair-841' id='841'></div>
+<div onclick='fselect(842)' class='flair flair-optc flair-842' id='842'></div>
+<div onclick='fselect(843)' class='flair flair-optc flair-843' id='843'></div>
+<div onclick='fselect(844)' class='flair flair-optc flair-844' id='844'></div>
+<div onclick='fselect(845)' class='flair flair-optc flair-845' id='845'></div>
+<div onclick='fselect(846)' class='flair flair-optc flair-846' id='846'></div>
+<div onclick='fselect(847)' class='flair flair-optc flair-847' id='847'></div>
+<div onclick='fselect(848)' class='flair flair-optc flair-848' id='848'></div>
+<div onclick='fselect(849)' class='flair flair-optc flair-849' id='849'></div>
+<div onclick='fselect(850)' class='flair flair-optc flair-850' id='850'></div>
+<div onclick='fselect(851)' class='flair flair-optc flair-851' id='851'></div>
+<div onclick='fselect(852)' class='flair flair-optc flair-852' id='852'></div>
+<div onclick='fselect(853)' class='flair flair-optc flair-853' id='853'></div>
+<div onclick='fselect(854)' class='flair flair-optc flair-854' id='854'></div>
+<div onclick='fselect(855)' class='flair flair-optc flair-855' id='855'></div>
+<div onclick='fselect(856)' class='flair flair-optc flair-856' id='856'></div>
+<div onclick='fselect(857)' class='flair flair-optc flair-857' id='857'></div>
+<div onclick='fselect(858)' class='flair flair-optc flair-858' id='858'></div>
+<div onclick='fselect(859)' class='flair flair-optc flair-859' id='859'></div>
+<div onclick='fselect(860)' class='flair flair-optc flair-860' id='860'></div>
+<div onclick='fselect(861)' class='flair flair-optc flair-861' id='861'></div>
+<div onclick='fselect(862)' class='flair flair-optc flair-862' id='862'></div>
+<div onclick='fselect(863)' class='flair flair-optc flair-863' id='863'></div>
+<div onclick='fselect(864)' class='flair flair-optc flair-864' id='864'></div>
+<div onclick='fselect(865)' class='flair flair-optc flair-865' id='865'></div>
+<div onclick='fselect(866)' class='flair flair-optc flair-866' id='866'></div>
+<div onclick='fselect(867)' class='flair flair-optc flair-867' id='867'></div>
+<div onclick='fselect(868)' class='flair flair-optc flair-868' id='868'></div>
+<div onclick='fselect(869)' class='flair flair-optc flair-869' id='869'></div>
+<div onclick='fselect(870)' class='flair flair-optc flair-870' id='870'></div>
+<div onclick='fselect(871)' class='flair flair-optc flair-871' id='871'></div>
+<div onclick='fselect(872)' class='flair flair-optc flair-872' id='872'></div>
+<div onclick='fselect(873)' class='flair flair-optc flair-873' id='873'></div>
+<div onclick='fselect(874)' class='flair flair-optc flair-874' id='874'></div>
+<div onclick='fselect(875)' class='flair flair-optc flair-875' id='875'></div>
+<div onclick='fselect(876)' class='flair flair-optc flair-876' id='876'></div>
+<div onclick='fselect(877)' class='flair flair-optc flair-877' id='877'></div>
+<div onclick='fselect(878)' class='flair flair-optc flair-878' id='878'></div>
+<div onclick='fselect(879)' class='flair flair-optc flair-879' id='879'></div>
+<div onclick='fselect(880)' class='flair flair-optc flair-880' id='880'></div>
+<div onclick='fselect(881)' class='flair flair-optc flair-881' id='881'></div>
+<div onclick='fselect(882)' class='flair flair-optc flair-882' id='882'></div>
+<div onclick='fselect(883)' class='flair flair-optc flair-883' id='883'></div>
+<div onclick='fselect(884)' class='flair flair-optc flair-884' id='884'></div>
+<div onclick='fselect(885)' class='flair flair-optc flair-885' id='885'></div>
+<div onclick='fselect(886)' class='flair flair-optc flair-886' id='886'></div>
+<div onclick='fselect(887)' class='flair flair-optc flair-887' id='887'></div>
+<div onclick='fselect(888)' class='flair flair-optc flair-888' id='888'></div>
+<div onclick='fselect(889)' class='flair flair-optc flair-889' id='889'></div>
+<div onclick='fselect(890)' class='flair flair-optc flair-890' id='890'></div>
+<div onclick='fselect(891)' class='flair flair-optc flair-891' id='891'></div>
+<div onclick='fselect(892)' class='flair flair-optc flair-892' id='892'></div>
+<div onclick='fselect(893)' class='flair flair-optc flair-893' id='893'></div>
+<div onclick='fselect(894)' class='flair flair-optc flair-894' id='894'></div>
+<div onclick='fselect(895)' class='flair flair-optc flair-895' id='895'></div>
+<div onclick='fselect(896)' class='flair flair-optc flair-896' id='896'></div>
+<div onclick='fselect(897)' class='flair flair-optc flair-897' id='897'></div>
+<div onclick='fselect(898)' class='flair flair-optc flair-898' id='898'></div>
+<div onclick='fselect(899)' class='flair flair-optc flair-899' id='899'></div>
+<div onclick='fselect(900)' class='flair flair-optc flair-900' id='900'></div>
+<div onclick='fselect(901)' class='flair flair-optc flair-901' id='901'></div>
+<div onclick='fselect(902)' class='flair flair-optc flair-902' id='902'></div>
+<div onclick='fselect(903)' class='flair flair-optc flair-903' id='903'></div>
+<div onclick='fselect(904)' class='flair flair-optc flair-904' id='904'></div>
+<div onclick='fselect(905)' class='flair flair-optc flair-905' id='905'></div>
+<div onclick='fselect(906)' class='flair flair-optc flair-906' id='906'></div>
+<div onclick='fselect(907)' class='flair flair-optc flair-907' id='907'></div>
+<div onclick='fselect(908)' class='flair flair-optc flair-908' id='908'></div>
+<div onclick='fselect(909)' class='flair flair-optc flair-909' id='909'></div>
+<div onclick='fselect(910)' class='flair flair-optc flair-910' id='910'></div>
+<div onclick='fselect(911)' class='flair flair-optc flair-911' id='911'></div>
+<div onclick='fselect(912)' class='flair flair-optc flair-912' id='912'></div>
+<div onclick='fselect(913)' class='flair flair-optc flair-913' id='913'></div>
+<div onclick='fselect(914)' class='flair flair-optc flair-914' id='914'></div>
+<div onclick='fselect(915)' class='flair flair-optc flair-915' id='915'></div>
+<div onclick='fselect(916)' class='flair flair-optc flair-916' id='916'></div>
+<div onclick='fselect(917)' class='flair flair-optc flair-917' id='917'></div>
+<div onclick='fselect(918)' class='flair flair-optc flair-918' id='918'></div>
+<div onclick='fselect(919)' class='flair flair-optc flair-919' id='919'></div>
+<div onclick='fselect(920)' class='flair flair-optc flair-920' id='920'></div>
+<div onclick='fselect(921)' class='flair flair-optc flair-921' id='921'></div>
+<div onclick='fselect(922)' class='flair flair-optc flair-922' id='922'></div>
+<div onclick='fselect(923)' class='flair flair-optc flair-923' id='923'></div>
+<div onclick='fselect(924)' class='flair flair-optc flair-924' id='924'></div>
+<div onclick='fselect(925)' class='flair flair-optc flair-925' id='925'></div>
+<div onclick='fselect(926)' class='flair flair-optc flair-926' id='926'></div>
+<div onclick='fselect(927)' class='flair flair-optc flair-927' id='927'></div>
+<div onclick='fselect(928)' class='flair flair-optc flair-928' id='928'></div>
+<div onclick='fselect(929)' class='flair flair-optc flair-929' id='929'></div>
+<div onclick='fselect(930)' class='flair flair-optc flair-930' id='930'></div>
+<div onclick='fselect(931)' class='flair flair-optc flair-931' id='931'></div>
+<div onclick='fselect(932)' class='flair flair-optc flair-932' id='932'></div>
+<div onclick='fselect(933)' class='flair flair-optc flair-933' id='933'></div>
+<div onclick='fselect(934)' class='flair flair-optc flair-934' id='934'></div>
+<div onclick='fselect(935)' class='flair flair-optc flair-935' id='935'></div>
+<div onclick='fselect(936)' class='flair flair-optc flair-936' id='936'></div>
+<div onclick='fselect(937)' class='flair flair-optc flair-937' id='937'></div>
+<div onclick='fselect(938)' class='flair flair-optc flair-938' id='938'></div>
+<div onclick='fselect(939)' class='flair flair-optc flair-939' id='939'></div>
+<div onclick='fselect(940)' class='flair flair-optc flair-940' id='940'></div>
+<div onclick='fselect(941)' class='flair flair-optc flair-941' id='941'></div>
+<div onclick='fselect(942)' class='flair flair-optc flair-942' id='942'></div>
+<div onclick='fselect(943)' class='flair flair-optc flair-943' id='943'></div>
+<div onclick='fselect(944)' class='flair flair-optc flair-944' id='944'></div>
+<div onclick='fselect(945)' class='flair flair-optc flair-945' id='945'></div>
+<div onclick='fselect(946)' class='flair flair-optc flair-946' id='946'></div>
+<div onclick='fselect(947)' class='flair flair-optc flair-947' id='947'></div>
+<div onclick='fselect(948)' class='flair flair-optc flair-948' id='948'></div>
+<div onclick='fselect(949)' class='flair flair-optc flair-949' id='949'></div>
+<div onclick='fselect(950)' class='flair flair-optc flair-950' id='950'></div>
+<div onclick='fselect(951)' class='flair flair-optc flair-951' id='951'></div>
+<div onclick='fselect(952)' class='flair flair-optc flair-952' id='952'></div>
+<div onclick='fselect(953)' class='flair flair-optc flair-953' id='953'></div>
+<div onclick='fselect(954)' class='flair flair-optc flair-954' id='954'></div>
+<div onclick='fselect(955)' class='flair flair-optc flair-955' id='955'></div>
+<div onclick='fselect(956)' class='flair flair-optc flair-956' id='956'></div>
+<div onclick='fselect(957)' class='flair flair-optc flair-957' id='957'></div>
+<div onclick='fselect(958)' class='flair flair-optc flair-958' id='958'></div>
+<div onclick='fselect(959)' class='flair flair-optc flair-959' id='959'></div>
+<div onclick='fselect(960)' class='flair flair-optc flair-960' id='960'></div>
+<div onclick='fselect(961)' class='flair flair-optc flair-961' id='961'></div>
+<div onclick='fselect(962)' class='flair flair-optc flair-962' id='962'></div>
+<div onclick='fselect(963)' class='flair flair-optc flair-963' id='963'></div>
+<div onclick='fselect(964)' class='flair flair-optc flair-964' id='964'></div>
+<div onclick='fselect(965)' class='flair flair-optc flair-965' id='965'></div>
+<div onclick='fselect(966)' class='flair flair-optc flair-966' id='966'></div>
+<div onclick='fselect(967)' class='flair flair-optc flair-967' id='967'></div>
+<div onclick='fselect(968)' class='flair flair-optc flair-968' id='968'></div>
+<div onclick='fselect(969)' class='flair flair-optc flair-969' id='969'></div>
+<div onclick='fselect(970)' class='flair flair-optc flair-970' id='970'></div>
+<div onclick='fselect(971)' class='flair flair-optc flair-971' id='971'></div>
+<div onclick='fselect(972)' class='flair flair-optc flair-972' id='972'></div>
+<div onclick='fselect(973)' class='flair flair-optc flair-973' id='973'></div>
+<div onclick='fselect(974)' class='flair flair-optc flair-974' id='974'></div>
+<div onclick='fselect(975)' class='flair flair-optc flair-975' id='975'></div>
+<div onclick='fselect(976)' class='flair flair-optc flair-976' id='976'></div>
+<div onclick='fselect(977)' class='flair flair-optc flair-977' id='977'></div>
+<div onclick='fselect(978)' class='flair flair-optc flair-978' id='978'></div>
+<div onclick='fselect(979)' class='flair flair-optc flair-979' id='979'></div>
+<div onclick='fselect(980)' class='flair flair-optc flair-980' id='980'></div>
+<div onclick='fselect(981)' class='flair flair-optc flair-981' id='981'></div>
+<div onclick='fselect(982)' class='flair flair-optc flair-982' id='982'></div>
+<div onclick='fselect(983)' class='flair flair-optc flair-983' id='983'></div>
+<div onclick='fselect(984)' class='flair flair-optc flair-984' id='984'></div>
+<div onclick='fselect(985)' class='flair flair-optc flair-985' id='985'></div>
+<div onclick='fselect(986)' class='flair flair-optc flair-986' id='986'></div>
+<div onclick='fselect(987)' class='flair flair-optc flair-987' id='987'></div>
+<div onclick='fselect(988)' class='flair flair-optc flair-988' id='988'></div>
+<div onclick='fselect(989)' class='flair flair-optc flair-989' id='989'></div>
+<div onclick='fselect(990)' class='flair flair-optc flair-990' id='990'></div>
+<div onclick='fselect(991)' class='flair flair-optc flair-991' id='991'></div>
+<div onclick='fselect(992)' class='flair flair-optc flair-992' id='992'></div>
+<div onclick='fselect(993)' class='flair flair-optc flair-993' id='993'></div>
+<div onclick='fselect(994)' class='flair flair-optc flair-994' id='994'></div>
+<div onclick='fselect(995)' class='flair flair-optc flair-995' id='995'></div>
+<div onclick='fselect(996)' class='flair flair-optc flair-996' id='996'></div>
+<div onclick='fselect(997)' class='flair flair-optc flair-997' id='997'></div>
+<div onclick='fselect(998)' class='flair flair-optc flair-998' id='998'></div>
+<div onclick='fselect(999)' class='flair flair-optc flair-999' id='999'></div>
+<div onclick='fselect(1000)' class='flair flair-optc flair-1000' id='1000'></div>
+<div onclick='fselect(1001)' class='flair flair-optc flair-1001' id='1001'></div>
+<div onclick='fselect(1002)' class='flair flair-optc flair-1002' id='1002'></div>
+<div onclick='fselect(1003)' class='flair flair-optc flair-1003' id='1003'></div>
+<div onclick='fselect(1004)' class='flair flair-optc flair-1004' id='1004'></div>
+<div onclick='fselect(1005)' class='flair flair-optc flair-1005' id='1005'></div>
+<div onclick='fselect(1006)' class='flair flair-optc flair-1006' id='1006'></div>
+<div onclick='fselect(1007)' class='flair flair-optc flair-1007' id='1007'></div>
+<div onclick='fselect(1008)' class='flair flair-optc flair-1008' id='1008'></div>
+<div onclick='fselect(1009)' class='flair flair-optc flair-1009' id='1009'></div>
+<div onclick='fselect(1010)' class='flair flair-optc flair-1010' id='1010'></div>
+<div onclick='fselect(1011)' class='flair flair-optc flair-1011' id='1011'></div>
+<div onclick='fselect(1012)' class='flair flair-optc flair-1012' id='1012'></div>
+<div onclick='fselect(1013)' class='flair flair-optc flair-1013' id='1013'></div>
+<div onclick='fselect(1014)' class='flair flair-optc flair-1014' id='1014'></div>
+<div onclick='fselect(1015)' class='flair flair-optc flair-1015' id='1015'></div>
+<div onclick='fselect(1016)' class='flair flair-optc flair-1016' id='1016'></div>
+<div onclick='fselect(1017)' class='flair flair-optc flair-1017' id='1017'></div>
+<div onclick='fselect(1018)' class='flair flair-optc flair-1018' id='1018'></div>
+<div onclick='fselect(1019)' class='flair flair-optc flair-1019' id='1019'></div>
+<div onclick='fselect(1020)' class='flair flair-optc flair-1020' id='1020'></div>
+<div onclick='fselect(1021)' class='flair flair-optc flair-1021' id='1021'></div>
+<div onclick='fselect(1022)' class='flair flair-optc flair-1022' id='1022'></div>
+<div onclick='fselect(1023)' class='flair flair-optc flair-1023' id='1023'></div>
+<div onclick='fselect(1024)' class='flair flair-optc flair-1024' id='1024'></div>
+<div onclick='fselect(1025)' class='flair flair-optc flair-1025' id='1025'></div>
+<div onclick='fselect(1026)' class='flair flair-optc flair-1026' id='1026'></div>
+<div onclick='fselect(1027)' class='flair flair-optc flair-1027' id='1027'></div>
+<div onclick='fselect(1028)' class='flair flair-optc flair-1028' id='1028'></div>
+<div onclick='fselect(1029)' class='flair flair-optc flair-1029' id='1029'></div>
+<div onclick='fselect(1030)' class='flair flair-optc flair-1030' id='1030'></div>
+<div onclick='fselect(1031)' class='flair flair-optc flair-1031' id='1031'></div>
+<div onclick='fselect(1032)' class='flair flair-optc flair-1032' id='1032'></div>
+<div onclick='fselect(1033)' class='flair flair-optc flair-1033' id='1033'></div>
+<div onclick='fselect(1034)' class='flair flair-optc flair-1034' id='1034'></div>
+<div onclick='fselect(1035)' class='flair flair-optc flair-1035' id='1035'></div>
+<div onclick='fselect(1036)' class='flair flair-optc flair-1036' id='1036'></div>
+<div onclick='fselect(1037)' class='flair flair-optc flair-1037' id='1037'></div>
+<div onclick='fselect(1038)' class='flair flair-optc flair-1038' id='1038'></div>
+<div onclick='fselect(1039)' class='flair flair-optc flair-1039' id='1039'></div>
+<div onclick='fselect(1040)' class='flair flair-optc flair-1040' id='1040'></div>
+<div onclick='fselect(1041)' class='flair flair-optc flair-1041' id='1041'></div>
+<div onclick='fselect(1042)' class='flair flair-optc flair-1042' id='1042'></div>
+<div onclick='fselect(1043)' class='flair flair-optc flair-1043' id='1043'></div>
+<div onclick='fselect(1044)' class='flair flair-optc flair-1044' id='1044'></div>
+<div onclick='fselect(1045)' class='flair flair-optc flair-1045' id='1045'></div>
+<div onclick='fselect(1046)' class='flair flair-optc flair-1046' id='1046'></div>
+<div onclick='fselect(1047)' class='flair flair-optc flair-1047' id='1047'></div>
+<div onclick='fselect(1048)' class='flair flair-optc flair-1048' id='1048'></div>
+<div onclick='fselect(1049)' class='flair flair-optc flair-1049' id='1049'></div>
+<div onclick='fselect(1050)' class='flair flair-optc flair-1050' id='1050'></div>
+<div onclick='fselect(1051)' class='flair flair-optc flair-1051' id='1051'></div>
+<div onclick='fselect(1052)' class='flair flair-optc flair-1052' id='1052'></div>
+</div>
+
+<script type='text/javascript' src="http://static.tumblr.com/idsxosh/R3vo7f3x6/names.js"></script>
+
+<script>
+
+name = 0;
+
+//send flair selection to bot
+function sendflair(){
+	txt = (document.getElementById("text").value);
+	window.open("http://www.reddit.com/message/compose/?to=anton_bot&subject="+pname[name]+"&message="+txt)
+}
+
+//current selection
+function fselect(vnum){
+	document.getElementById(name).className = "flair flair-optc flair-"+name;
+	document.getElementById(vnum).className += " selected";
+	name = vnum;
+	document.getElementById("flair").className = "flair flair-optc flair-"+name;
+}
+
+//Search Form Script
+function fsearch(){
+    var search = document.getElementById("search").value;
+    name = search;
+	document.getElementById("flair").className = "flair flair-optc flair-"+search;
+}
+
+</script>
+
+</div>
+</body>
 </html>
